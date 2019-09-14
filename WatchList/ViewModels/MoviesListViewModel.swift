@@ -21,11 +21,14 @@ class MoviesListViewModel {
     
     var movies = [MovieData]() {
         didSet {
+            filteredMovies = movies
             currentMoviesPage = currentMoviesPage + 1
             fetchingMoreMovies = false
             viewDelegate?.didFinishFetchMovies()
         }
     }
+    
+    var filteredMovies = [MovieData]()
     
     init(moviesDataManager: MoviesDataManager) {
         self.moviesDataManager = moviesDataManager
@@ -43,5 +46,13 @@ class MoviesListViewModel {
     
     func getPosterUrl(with movie: MovieData) -> URL? {
          return URL(string: "\(Constants.posterUrl)\(movie.posterPath ?? "")")
+    }
+    
+    func filterMovies(by name: String) {
+        if name.isEmpty {
+            filteredMovies = movies
+        } else {
+            filteredMovies = movies.filter({ $0.title?.lowercased().contains(name.lowercased()) ?? false })
+        }
     }
 }

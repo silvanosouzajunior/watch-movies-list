@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Movies List View Controller-->
+        <!--Movies 2019-->
         <scene sceneID="gRo-Ty-S1Y">
             <objects>
                 <viewController storyboardIdentifier="MoviesListViewController" id="DDf-R4-cMw" customClass="MoviesListViewController" customModule="WatchList" customModuleProvider="target" sceneMemberID="viewController">
@@ -111,7 +111,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="GWN-Dh-RLl"/>
                     </view>
-                    <navigationItem key="navigationItem" id="Uz2-i6-8QQ"/>
+                    <navigationItem key="navigationItem" title="Movies 2019" id="Uz2-i6-8QQ"/>
                     <connections>
                         <outlet property="collectionView" destination="KTX-ec-IRS" id="1cQ-7U-dVs"/>
                     </connections>
