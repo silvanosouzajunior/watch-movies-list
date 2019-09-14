@@ -13,6 +13,7 @@ class MoviesListViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView! {
         didSet {
             collectionView.dataSource = self
+            collectionView.delegate = self
         }
     }
     
@@ -25,11 +26,11 @@ class MoviesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        viewModel?.getMovies(by: 1)
+        viewModel?.getMovies()
     }
     
     func setMoviePoster(for cell: MovieCollectionViewCell, at index: Int) {
-        let movie = viewModel?.movies?[index]
+        let movie = viewModel?.movies[index]
         cell.posterUrl = viewModel?.getPosterUrl(with: movie!)
     }
 }
@@ -40,7 +41,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.movies?.count ?? 0
+        return viewModel?.movies.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -57,3 +58,15 @@ extension MoviesListViewController: MoviesListViewModelViewDelegate {
         collectionView.reloadData()
     }
 }
+
+extension MoviesListViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.size.height {
+            viewModel?.getMovies()
+        }
+    }
+}
+

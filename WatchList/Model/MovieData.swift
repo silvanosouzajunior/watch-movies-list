@@ -9,12 +9,12 @@
 import Foundation
 
 struct MovieData: Codable {
-    let id: Int
-    let posterPath: String
-    let title: String
-    let voteAverage: Int
-    let overview: String
-    let releaseDate: String
+    let id: Int?
+    let posterPath: String?
+    let title: String?
+    let voteAverage: Int?
+    let overview: String?
+    let releaseDate: String?
     
     enum CodingKeys: String, CodingKey {
         case id
