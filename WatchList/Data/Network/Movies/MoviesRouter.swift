@@ -11,21 +11,11 @@ import Alamofire
 enum MoviesRouter: APIConfiguration {
     
     case movies(page: Int)
-    case poster(posterPath: String)
     
     var method: HTTPMethod {
         switch self {
-        case .movies, .poster:
+        case .movies:
             return .get
-        }
-    }
-    
-    var baseUrl: String {
-        switch self {
-        case .movies(_):
-            return "https://api.themoviedb.org/3/discover/movie\(path)"
-        case .poster(_):
-            return "https://image.tmdb.org/t/p/w185/\(path)"
         }
     }
     
@@ -33,8 +23,6 @@ enum MoviesRouter: APIConfiguration {
         switch self {
         case .movies(let page):
             return "?primary_release_year=2019&sort_by=vote_average.desc&api_key=\(Constants.apiKey)&page=\(page)"
-        case .poster(let posterPath):
-            return posterPath
         }
     }
     
@@ -43,6 +31,7 @@ enum MoviesRouter: APIConfiguration {
     }
     
     func asURLRequest() throws -> URLRequest {
+        let baseUrl = "https://api.themoviedb.org/3/discover/movie\(path)"
         let url = try baseUrl.asURL()
         
         var urlRequest = URLRequest(url: url)

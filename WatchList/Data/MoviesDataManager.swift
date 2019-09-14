@@ -16,10 +16,4 @@ class MoviesDataManager {
             completion(movies)
         })
     }
-    
-    func getPoster(posterPath: String, completion: @escaping (UIImage?) -> Void) {
-        movieService.getMoviePoster(posterPath: posterPath, completion: { image in
-            completion(image)
-        })
-    }
 }

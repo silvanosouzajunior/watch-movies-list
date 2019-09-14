@@ -27,6 +27,11 @@ class MoviesListViewController: UIViewController {
         
         viewModel?.getMovies(by: 1)
     }
+    
+    func setMoviePoster(for cell: MovieCollectionViewCell, at index: Int) {
+        let movie = viewModel?.movies?[index]
+        cell.posterUrl = viewModel?.getPosterUrl(with: movie!)
+    }
 }
 
 extension MoviesListViewController: UICollectionViewDataSource {
@@ -41,10 +46,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCell", for: indexPath) as! MovieCollectionViewCell
         
-        if let movies = viewModel?.movies, movies.count > 0 {
-            let movie = movies[indexPath.row]
-            viewModel?.getPosterImage(for: movie, at: indexPath.row)
-        }
+        setMoviePoster(for: cell, at: indexPath.row)
         
         return cell
     }
@@ -53,12 +55,5 @@ extension MoviesListViewController: UICollectionViewDataSource {
 extension MoviesListViewController: MoviesListViewModelViewDelegate {
     func didFinishFetchMovies() {
         collectionView.reloadData()
-    }
-    
-    func didLoadPoster(poster: UIImage, index: Int) {
-        let indexPath = IndexPath(row: index, section: 0)
-        if let cell = collectionView.cellForItem(at: indexPath) as? MovieCollectionViewCell {
-            cell.posterImage = poster
-        }
     }
 }

@@ -27,10 +27,4 @@ class MovieService {
             }
         }
     }
-    
-    func getMoviePoster(posterPath: String, completion: @escaping (UIImage?) -> Void) {
-        Alamofire.request(MoviesRouter.poster(posterPath: posterPath)).responseImage { response in
-            completion(response.result.value)
-        }
-    }
 }

@@ -10,4 +10,5 @@ import Foundation
 
 class Constants {
     static let apiKey = "dbfeacab00df49c36b197dd6ce111082"
+    static let posterUrl = "https://image.tmdb.org/t/p/w185/"
 }

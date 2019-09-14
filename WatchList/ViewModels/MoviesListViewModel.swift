@@ -10,7 +10,6 @@ import UIKit
 
 protocol MoviesListViewModelViewDelegate: class {
     func didFinishFetchMovies()
-    func didLoadPoster(poster: UIImage, index: Int)
 }
 
 class MoviesListViewModel {
@@ -33,11 +32,7 @@ class MoviesListViewModel {
         })
     }
     
-    func getPosterImage(for movie: MovieData, at index: Int) {
-        moviesDataManager?.getPoster(posterPath: movie.posterPath, completion: { image in
-            if let posterImage = image {
-                self.viewDelegate?.didLoadPoster(poster: posterImage, index: index)
-            }
-        })
+    func getPosterUrl(with movie: MovieData) -> URL? {
+         return URL(string: "\(Constants.posterUrl)\(movie.posterPath)")
     }
 }
