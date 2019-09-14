@@ -12,7 +12,7 @@ struct MovieData: Codable {
     let id: Int?
     let posterPath: String?
     let title: String?
-    let voteAverage: Int?
+    let voteAverage: Float?
     let overview: String?
     let releaseDate: String?
     

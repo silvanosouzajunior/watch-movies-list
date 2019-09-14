@@ -21,7 +21,7 @@ class MovieService {
             
             do {
                 let response = try JSONDecoder().decode(MoviesResponse.self, from: data)
-                completion(response.results)
+                completion(response.results ?? [])
             } catch {
                 completion([])
             }
