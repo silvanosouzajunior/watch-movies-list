@@ -4,7 +4,8 @@ target 'WatchList' do
 
   use_frameworks!
   
-  pod 'Alamofire'
+  pod 'Alamofire', '4.8'
+  pod 'AlamofireImage', '~> 3.5'
 
   # Pods for WatchList
 

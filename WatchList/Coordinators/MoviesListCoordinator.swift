@@ -24,7 +24,8 @@ class MoviesListCoordinator: Coordinator {
         
         guard let moviesListViewController = moviesListViewController else { return }
         
-        let viewModel = MoviesListViewModel()
+        let moviesDataManager = MoviesDataManager()
+        let viewModel = MoviesListViewModel(moviesDataManager: moviesDataManager)
         moviesListViewController.viewModel = viewModel
         window.rootViewController = navigationController
     }

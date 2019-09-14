@@ -34,8 +34,22 @@
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="186" height="243"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qWg-sP-zJp">
+                                                    <rect key="frame" x="0.0" y="0.0" width="186" height="243"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="qWg-sP-zJp" secondAttribute="bottom" id="9Bj-rD-3yh"/>
+                                            <constraint firstItem="qWg-sP-zJp" firstAttribute="leading" secondItem="Jt6-7D-5Tq" secondAttribute="leading" id="EeP-qX-Qjt"/>
+                                            <constraint firstItem="qWg-sP-zJp" firstAttribute="top" secondItem="Jt6-7D-5Tq" secondAttribute="top" id="Mou-Db-9PH"/>
+                                            <constraint firstAttribute="trailing" secondItem="qWg-sP-zJp" secondAttribute="trailing" id="fEt-Ol-12F"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="posterImageView" destination="qWg-sP-zJp" id="Yr5-bJ-Ea9"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>

@@ -10,4 +10,11 @@ import UIKit
 
 class MovieCollectionViewCell: UICollectionViewCell {
     
+    @IBOutlet weak var posterImageView: UIImageView!
+    
+    var posterImage: UIImage? {
+        didSet {
+            posterImageView.image = posterImage
+        }
+    }
 }
