@@ -16,15 +16,15 @@ class MovieCollectionViewCell: UICollectionViewCell {
     
     var posterUrl: URL? {
         didSet {
+            posterImageView.image = nil
             posterImageView.af_setImage(withURL: posterUrl!)
         }
     }
     
-    var movie: MovieData? {
+    var movie: Movie? {
         didSet {
             movieTitleLabel.text = movie?.title
-            ratingLabel.text = movie?.voteAverage?.description
+            ratingLabel.text = movie?.voteAverage.description
         }
     }
-    
 }

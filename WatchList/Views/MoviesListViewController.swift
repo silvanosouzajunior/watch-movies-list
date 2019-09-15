@@ -29,7 +29,6 @@ class MoviesListViewController: UIViewController {
         super.viewDidLoad()
         
         setupSearchBar()
-        viewModel?.getMovies()
     }
     
     func setupSearchBar() {
@@ -43,7 +42,7 @@ class MoviesListViewController: UIViewController {
     }
     
     func setupMovie(for cell: MovieCollectionViewCell, at index: Int) {
-        let movie = viewModel?.filteredMovies[index]
+        let movie = viewModel?.filteredMovies?[index]
         cell.movie = movie
         cell.posterUrl = viewModel?.getPosterUrl(with: movie!)
     }
@@ -55,7 +54,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel?.filteredMovies.count ?? 0
+        return viewModel?.filteredMovies?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

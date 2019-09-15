@@ -19,7 +19,7 @@ class MoviesListViewModel {
     var shouldFetchMoreMovies = true
     var currentMoviesPage = 1
     
-    var movies = [MovieData]() {
+    var movies: [Movie]? {
         didSet {
             filteredMovies = movies
             currentMoviesPage = currentMoviesPage + 1
@@ -28,7 +28,7 @@ class MoviesListViewModel {
         }
     }
     
-    var filteredMovies = [MovieData]()
+    var filteredMovies: [Movie]?
     
     init(moviesDataManager: MoviesDataManager) {
         self.moviesDataManager = moviesDataManager
@@ -38,21 +38,28 @@ class MoviesListViewModel {
         guard shouldFetchMoreMovies, !fetchingMoreMovies else { return }
         
         fetchingMoreMovies = true
-        moviesDataManager?.getMovies(by: currentMoviesPage, completion: { downloadedMovies in
-            self.movies.append(contentsOf: downloadedMovies)
-            self.shouldFetchMoreMovies = downloadedMovies.count > 0
+        moviesDataManager?.getMovies(by: currentMoviesPage, completion: { recentMovies, localMovies in
+            if localMovies {
+                self.currentMoviesPage = recentMovies.count / 20
+                self.movies = recentMovies
+            } else if self.movies != nil {
+                self.movies!.append(contentsOf: recentMovies)
+            } else {
+                self.movies = recentMovies
+            }
+            self.shouldFetchMoreMovies = recentMovies.count > 0
         })
     }
     
-    func getPosterUrl(with movie: MovieData) -> URL? {
-         return URL(string: "\(Constants.posterUrl)\(movie.posterPath ?? "")")
+    func getPosterUrl(with movie: Movie) -> URL? {
+        return URL(string: "\(Constants.posterUrl)\(movie.posterPath)")
     }
     
     func filterMovies(by name: String) {
         if name.isEmpty {
             filteredMovies = movies
         } else {
-            filteredMovies = movies.filter({ $0.title?.lowercased().contains(name.lowercased()) ?? false })
+            filteredMovies = movies?.filter({ $0.title.lowercased().contains(name.lowercased()) })
         }
     }
 }

@@ -6,6 +6,7 @@ target 'WatchList' do
   
   pod 'Alamofire', '4.8'
   pod 'AlamofireImage', '~> 3.5'
+  pod 'RealmSwift'
 
   # Pods for WatchList
 
