@@ -69,4 +69,8 @@ class MoviesListViewModel {
         let isFavorite = moviesDataManager?.favoriteMovie(movie: movie) ?? false
         viewDelegate?.didSetFavorite(index: index, isFavorite: isFavorite)
     }
+    
+    func showFavoriteAlert() {
+        coordinatorDelegate?.showFavoriteAlert()
+    }
 }

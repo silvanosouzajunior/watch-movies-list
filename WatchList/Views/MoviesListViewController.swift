@@ -28,6 +28,7 @@ class MoviesListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel?.showFavoriteAlert()
         setupSearchBar()
     }
     

@@ -10,6 +10,7 @@ import UIKit
 
 protocol MovieListViewModelCoordinatorDelegate: class {
     func showMovieDetails(movie: Movie?)
+    func showFavoriteAlert()
 }
 
 class MoviesListCoordinator: Coordinator {
@@ -49,5 +50,14 @@ extension MoviesListCoordinator: MovieListViewModelCoordinatorDelegate {
         
         let movieDetailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, movie: movie)
         movieDetailsCoordinator.start()
+    }
+    
+    func showFavoriteAlert() {
+        let title = "Add a Movie to your Favorite List"
+        let messsage = "If you want to mark a movie as favorite, you just need to double tap on the movie you want"
+        let alertController = UIAlertController(title: title, message: messsage, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+        alertController.addAction(okAction)
+        navigationController.present(alertController, animated: true, completion: nil)
     }
 }
