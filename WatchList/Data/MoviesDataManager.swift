@@ -26,6 +26,11 @@ class MoviesDataManager {
         })
     }
     
+    func getFavoriteMovies() -> [Movie] {
+        let localMovies = localMoviesManager.getLocalMovies()
+        return localMovies.filter({ $0.isFavorite })
+    }
+
     func favoriteMovie(movie: Movie) -> Bool {
         return localMoviesManager.favoriteMovie(movie: movie)
     }

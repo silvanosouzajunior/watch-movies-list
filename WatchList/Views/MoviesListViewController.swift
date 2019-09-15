@@ -88,6 +88,14 @@ extension MoviesListViewController: UICollectionViewDelegate {
     }
 }
 
+extension MoviesListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = UIScreen.main.bounds.size.width / 2 - 20
+        let height = width * 1.6
+        return CGSize(width: width, height: height)
+    }
+}
+
 extension MoviesListViewController: MoviesListViewModelViewDelegate {
     func didSetFavorite(index: Int, isFavorite: Bool) {
         let indexPath = IndexPath(row: index, section: 0)
