@@ -95,6 +95,7 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
+                                            <outlet property="favoriteImageView" destination="bFf-IL-aIe" id="WX7-V7-6uz"/>
                                             <outlet property="movieTitleLabel" destination="bCf-XZ-HV6" id="YoW-Sc-ENa"/>
                                             <outlet property="posterImageView" destination="qWg-sP-zJp" id="Yr5-bJ-Ea9"/>
                                             <outlet property="ratingLabel" destination="zA1-la-WJO" id="uou-d7-wh7"/>

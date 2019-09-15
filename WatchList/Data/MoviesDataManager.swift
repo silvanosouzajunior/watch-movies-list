@@ -25,4 +25,8 @@ class MoviesDataManager {
             completion(self.localMoviesManager.getRecentLocalMovies(count: moviesData.count), false)
         })
     }
+    
+    func favoriteMovie(movie: Movie) -> Bool {
+        return localMoviesManager.favoriteMovie(movie: movie)
+    }
 }

@@ -43,9 +43,12 @@ class MoviesListViewController: UIViewController {
     
     func setupMovie(for cell: MovieCollectionViewCell, at index: Int) {
         let movie = viewModel?.filteredMovies?[index]
+        cell.index = index
         cell.movieTitle = movie?.title
         cell.movieRating = movie?.voteAverage.description
         cell.posterUrl = ImageDownloaderHelper.getPosterUrl(with: movie?.posterPath ?? "")
+        cell.isFavorite = movie?.isFavorite ?? false
+        cell.delegate = self
     }
 }
 
@@ -86,6 +89,13 @@ extension MoviesListViewController: UICollectionViewDelegate {
 }
 
 extension MoviesListViewController: MoviesListViewModelViewDelegate {
+    func didSetFavorite(index: Int, isFavorite: Bool) {
+        let indexPath = IndexPath(row: index, section: 0)
+        let movie = viewModel?.movies?[index]
+        let cell = collectionView.cellForItem(at: indexPath) as! MovieCollectionViewCell
+        cell.isFavorite = movie?.isFavorite ?? false
+    }
+    
     func didFinishFetchMovies() {
         collectionView.reloadData()
     }
@@ -96,6 +106,14 @@ extension MoviesListViewController: UISearchResultsUpdating {
         let searchTerm = searchController.searchBar.text ?? ""
         viewModel?.filterMovies(by: searchTerm)
         collectionView.reloadData()
+    }
+}
+
+extension MoviesListViewController: MovieFavoriteCellDelegate {
+    func didSelectMovie(at index: Int) {
+        if let movie = viewModel?.movies?[index] {
+            viewModel?.favoriteMovie(movie: movie, index: index)
+        }
     }
 }
 

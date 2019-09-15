@@ -10,6 +10,7 @@ import UIKit
 
 protocol MoviesListViewModelViewDelegate: class {
     func didFinishFetchMovies()
+    func didSetFavorite(index: Int, isFavorite: Bool)
 }
 
 class MoviesListViewModel {
@@ -62,5 +63,10 @@ class MoviesListViewModel {
     
     func showMovieDetails(movie: Movie?) {
         coordinatorDelegate?.showMovieDetails(movie: movie)
+    }
+    
+    func favoriteMovie(movie: Movie, index: Int) {
+        let isFavorite = moviesDataManager?.favoriteMovie(movie: movie) ?? false
+        viewDelegate?.didSetFavorite(index: index, isFavorite: isFavorite)
     }
 }

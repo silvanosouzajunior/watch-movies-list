@@ -41,4 +41,12 @@ class LocalMoviesManager {
         let localMovies = getLocalMovies()
         return localMovies.suffix(count)
     }
+    
+    func favoriteMovie(movie: Movie) -> Bool {
+        let isFavorite = !movie.isFavorite
+        try! realm.write {
+            movie.isFavorite = isFavorite
+        }
+        return isFavorite
+    }
 }
