@@ -12,10 +12,12 @@ class MovieDetailsCoordinator: Coordinator {
     
     var navigationController: UINavigationController
     var movie: Movie
+    var moviesDataManager: MoviesDataManager
 
-    init(navigationController: UINavigationController, movie: Movie) {
+    init(navigationController: UINavigationController, movie: Movie, moviesDataManager: MoviesDataManager) {
         self.navigationController = navigationController
         self.movie = movie
+        self.moviesDataManager = moviesDataManager
     }
     
     func start() {
@@ -29,7 +31,7 @@ class MovieDetailsCoordinator: Coordinator {
             return
         }
         
-        let viewModel = MovieDetailsViewModel(movie: movie)
+        let viewModel = MovieDetailsViewModel(movie: movie, moviesDataManager: moviesDataManager)
         movieDetailsViewController.viewModel = viewModel
         
         navigationController.show(movieDetailsViewController, sender: nil)

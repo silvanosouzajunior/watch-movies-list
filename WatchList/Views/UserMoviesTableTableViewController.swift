@@ -16,7 +16,7 @@ class UserMoviesTableViewController: UITableViewController {
         super.viewWillAppear(animated)
         
         title = viewModel?.getNavigationTitle()
-        viewModel?.getFavoriteMovies()
+        viewModel?.getUserMovies()
         tableView.reloadData()
     }
     

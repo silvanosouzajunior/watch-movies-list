@@ -8,16 +8,12 @@ target 'WatchList' do
   pod 'AlamofireImage', '~> 3.5'
   pod 'RealmSwift'
 
-  # Pods for WatchList
-
   target 'WatchListTests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
   target 'WatchListUITests' do
     inherit! :search_paths
-    # Pods for testing
   end
 
 end

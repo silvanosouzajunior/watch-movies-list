@@ -13,8 +13,8 @@ class UserMoviesCoordinator: Coordinator {
     var navigationController: UINavigationController
     var userMoviesType: UserMoviesType
     
-    init(userMoviesType: UserMoviesType) {
-        self.navigationController = UINavigationController()
+    init(userMoviesType: UserMoviesType, navigationController: UINavigationController = UINavigationController()) {
+        self.navigationController = navigationController
         self.userMoviesType = userMoviesType
     }
     
@@ -36,6 +36,11 @@ class UserMoviesCoordinator: Coordinator {
         let moviesDataManager = MoviesDataManager()
         let viewModel = UserMoviesViewModel(moviesDataManager: moviesDataManager, userMoviesType: userMoviesType)
         userMoviesViewController.viewModel = viewModel
-        navigationController.setViewControllers([userMoviesViewController], animated: true)
+        
+        if userMoviesType == .favorites {
+            navigationController.setViewControllers([userMoviesViewController], animated: true)
+        } else {
+            navigationController.show(userMoviesViewController, sender: nil)
+        }
     }
 }

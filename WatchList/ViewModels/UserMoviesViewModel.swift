@@ -24,8 +24,13 @@ class UserMoviesViewModel {
         self.userMoviesType = userMoviesType
     }
     
-    func getFavoriteMovies() {
-        movies = moviesDataManager?.getFavoriteMovies() ?? []
+    func getUserMovies() {
+        switch userMoviesType {
+        case .favorites:
+            movies = moviesDataManager?.getFavoriteMovies() ?? []
+        case .watchList:
+            movies = moviesDataManager?.getWatchListMovies() ?? []
+        }
     }
     
     func getNavigationTitle() -> String {

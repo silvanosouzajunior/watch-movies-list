@@ -73,4 +73,8 @@ class MoviesListViewModel {
     func showFavoriteAlert() {
         coordinatorDelegate?.showFavoriteAlert()
     }
+    
+    @objc func showWatchList() {
+        coordinatorDelegate?.showWatchList()
+    }
 }

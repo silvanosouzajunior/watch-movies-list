@@ -16,6 +16,7 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var releaseDateLabel: UILabel!
     @IBOutlet weak var ratingLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var watchListButton: UIButton!
     
     var viewModel: MovieDetailsViewModel?
 
@@ -32,5 +33,13 @@ class MovieDetailsViewController: UIViewController {
         releaseDateLabel.text = viewModel?.movie.releaseDate
         ratingLabel.text = viewModel?.movie.voteAverage.description
         descriptionLabel.text = viewModel?.movie.overview
+        
+        let watchListButtonTitle = viewModel?.getWatchListButtonTitle(watchLater: nil)
+        watchListButton.setTitle(watchListButtonTitle, for: .normal)
+    }
+    
+    @IBAction func watchListButtonTapped(_ sender: UIButton) {
+        let watchListButtonTitle = viewModel?.addMovieToWatchList()
+        watchListButton.setTitle(watchListButtonTitle, for: .normal)
     }
 }

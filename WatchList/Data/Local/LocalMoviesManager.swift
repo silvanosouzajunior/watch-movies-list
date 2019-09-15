@@ -49,4 +49,12 @@ class LocalMoviesManager {
         }
         return isFavorite
     }
+    
+    func watchMovieLater(movie: Movie) -> Bool {
+        let watchLater = !movie.watchLater
+        try! realm.write {
+            movie.watchLater = watchLater
+        }
+        return watchLater
+    }
 }

@@ -11,14 +11,17 @@ import UIKit
 protocol MovieListViewModelCoordinatorDelegate: class {
     func showMovieDetails(movie: Movie?)
     func showFavoriteAlert()
+    func showWatchList()
 }
 
 class MoviesListCoordinator: Coordinator {
 
     var navigationController: UINavigationController
+    var moviesDataManager: MoviesDataManager
 
     init() {
         self.navigationController = UINavigationController()
+        self.moviesDataManager = MoviesDataManager()
     }
     
     public var rootViewController: UIViewController {
@@ -36,8 +39,10 @@ class MoviesListCoordinator: Coordinator {
             return
         }
         
-        let moviesDataManager = MoviesDataManager()
         let viewModel = MoviesListViewModel(moviesDataManager: moviesDataManager)
+        let action = #selector(MoviesListViewModel.showWatchList)
+        moviesListViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "WatchList", style: .plain, target: viewModel, action: action)
+        
         viewModel.coordinatorDelegate = self
         moviesListViewController.viewModel = viewModel
         navigationController.setViewControllers([moviesListViewController], animated: true)
@@ -48,7 +53,7 @@ extension MoviesListCoordinator: MovieListViewModelCoordinatorDelegate {
     func showMovieDetails(movie: Movie?) {
         guard let movie = movie else { return }
         
-        let movieDetailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, movie: movie)
+        let movieDetailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, movie: movie, moviesDataManager: moviesDataManager)
         movieDetailsCoordinator.start()
     }
     
@@ -59,5 +64,10 @@ extension MoviesListCoordinator: MovieListViewModelCoordinatorDelegate {
         let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
         alertController.addAction(okAction)
         navigationController.present(alertController, animated: true, completion: nil)
+    }
+    
+    func showWatchList() {
+        let userMoviesCoordinator = UserMoviesCoordinator(userMoviesType: .watchList, navigationController: navigationController)
+        userMoviesCoordinator.start()
     }
 }
