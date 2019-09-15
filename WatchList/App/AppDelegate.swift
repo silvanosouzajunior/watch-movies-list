@@ -12,14 +12,14 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var moviesListCoordinator: MoviesListCoordinator!
+    var tabCoordinator: TabCoordinator!
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow()
-        let navigationController = UINavigationController()
-        moviesListCoordinator = MoviesListCoordinator(navigationController: navigationController, window: window!)
-        moviesListCoordinator.start()
+        tabCoordinator = TabCoordinator(window: window!)
+        tabCoordinator.start()
+        
         return true
     }
 

@@ -14,12 +14,14 @@ protocol MovieListViewModelCoordinatorDelegate: class {
 
 class MoviesListCoordinator: Coordinator {
 
-    var window: UIWindow
     var navigationController: UINavigationController
 
-    init(navigationController: UINavigationController, window: UIWindow) {
-        self.navigationController = navigationController
-        self.window = window
+    init() {
+        self.navigationController = UINavigationController()
+    }
+    
+    public var rootViewController: UIViewController {
+        return navigationController
     }
     
     func start() {
@@ -37,13 +39,7 @@ class MoviesListCoordinator: Coordinator {
         let viewModel = MoviesListViewModel(moviesDataManager: moviesDataManager)
         viewModel.coordinatorDelegate = self
         moviesListViewController.viewModel = viewModel
-        showAsRootViewController(moviesListViewController)
-    }
-    
-    internal func showAsRootViewController(_ controller: UIViewController) {
-        navigationController.viewControllers = [controller]
-        window.rootViewController = navigationController
-        window.makeKeyAndVisible()
+        navigationController.setViewControllers([moviesListViewController], animated: true)
     }
 }
 

@@ -43,7 +43,8 @@ class MoviesListViewController: UIViewController {
     
     func setupMovie(for cell: MovieCollectionViewCell, at index: Int) {
         let movie = viewModel?.filteredMovies?[index]
-        cell.movie = movie
+        cell.movieTitle = movie?.title
+        cell.movieRating = movie?.voteAverage.description
         cell.posterUrl = ImageDownloaderHelper.getPosterUrl(with: movie?.posterPath ?? "")
     }
 }

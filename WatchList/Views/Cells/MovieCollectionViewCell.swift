@@ -21,10 +21,15 @@ class MovieCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    var movie: Movie? {
+    var movieTitle: String? {
         didSet {
-            movieTitleLabel.text = movie?.title
-            ratingLabel.text = movie?.voteAverage.description
+            movieTitleLabel.text = movieTitle
+        }
+    }
+    
+    var movieRating: String? {
+        didSet {
+            ratingLabel.text = movieRating
         }
     }
 }
