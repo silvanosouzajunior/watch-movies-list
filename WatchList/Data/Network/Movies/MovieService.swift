@@ -12,7 +12,6 @@ import AlamofireImage
 class MovieService {
     
     func getMovies(page: Int, completion: @escaping ([MovieData]) -> Void) {
-        
         Alamofire.request(MoviesRouter.movies(page: page)).responseJSON { response in
             guard let data = response.data else {
                 completion([])

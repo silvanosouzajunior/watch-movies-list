@@ -74,7 +74,7 @@ extension MoviesListViewController: UICollectionViewDataSource {
 
 extension MoviesListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let movie = viewModel?.movies?[indexPath.row]
+        let movie = viewModel?.filteredMovies?[indexPath.row]
         viewModel?.showMovieDetails(movie: movie)
     }
     

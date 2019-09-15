@@ -9,8 +9,13 @@
 import UIKit
 
 class MoviesDataManager {
-    let movieService = MovieService()
-    let localMoviesManager = LocalMoviesManager()
+    let movieService: MovieService
+    let localMoviesManager: LocalMoviesManager
+    
+    init(movieService: MovieService = MovieService(), localMoviesManager: LocalMoviesManager = LocalMoviesManager()) {
+        self.movieService = movieService
+        self.localMoviesManager = localMoviesManager
+    }
 
     func getMovies(by page: Int, completion: @escaping (_ recentMovies: [Movie], _ localMovies: Bool) -> Void) {
         let localMovies = localMoviesManager.getLocalMovies()
