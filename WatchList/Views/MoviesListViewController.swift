@@ -35,7 +35,7 @@ class MoviesListViewController: UIViewController {
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search movie by name"
-        searchController.searchBar.tintColor = UIColor.white
+        searchController.searchBar.tintColor = UIColor.black
         self.navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         definesPresentationContext = true
@@ -44,7 +44,7 @@ class MoviesListViewController: UIViewController {
     func setupMovie(for cell: MovieCollectionViewCell, at index: Int) {
         let movie = viewModel?.filteredMovies?[index]
         cell.movie = movie
-        cell.posterUrl = viewModel?.getPosterUrl(with: movie!)
+        cell.posterUrl = ImageDownloaderHelper.getPosterUrl(with: movie?.posterPath ?? "")
     }
 }
 
@@ -67,6 +67,11 @@ extension MoviesListViewController: UICollectionViewDataSource {
 }
 
 extension MoviesListViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = viewModel?.movies?[indexPath.row]
+        viewModel?.showMovieDetails(movie: movie)
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard !searchController.isActive else { return }
         

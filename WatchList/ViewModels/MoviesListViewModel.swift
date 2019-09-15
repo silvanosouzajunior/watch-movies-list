@@ -15,6 +15,7 @@ protocol MoviesListViewModelViewDelegate: class {
 class MoviesListViewModel {
     var moviesDataManager: MoviesDataManager?
     var viewDelegate: MoviesListViewModelViewDelegate?
+    var coordinatorDelegate: MovieListViewModelCoordinatorDelegate?
     var fetchingMoreMovies = false
     var shouldFetchMoreMovies = true
     var currentMoviesPage = 1
@@ -51,15 +52,15 @@ class MoviesListViewModel {
         })
     }
     
-    func getPosterUrl(with movie: Movie) -> URL? {
-        return URL(string: "\(Constants.posterUrl)\(movie.posterPath)")
-    }
-    
     func filterMovies(by name: String) {
         if name.isEmpty {
             filteredMovies = movies
         } else {
             filteredMovies = movies?.filter({ $0.title.lowercased().contains(name.lowercased()) })
         }
+    }
+    
+    func showMovieDetails(movie: Movie?) {
+        coordinatorDelegate?.showMovieDetails(movie: movie)
     }
 }

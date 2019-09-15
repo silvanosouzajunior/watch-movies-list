@@ -8,25 +8,50 @@
 
 import UIKit
 
+protocol MovieListViewModelCoordinatorDelegate: class {
+    func showMovieDetails(movie: Movie?)
+}
+
 class MoviesListCoordinator: Coordinator {
 
     var window: UIWindow
-    var moviesListViewController: MoviesListViewController?
+    var navigationController: UINavigationController
 
-    init(window: UIWindow) {
+    init(navigationController: UINavigationController, window: UIWindow) {
+        self.navigationController = navigationController
         self.window = window
     }
     
     func start() {
+        showMoviesList()
+    }
+    
+    func showMoviesList() {
         let storyboard = UIStoryboard(name: "MoviesList", bundle: nil)
-        let navigationController = storyboard.instantiateViewController(withIdentifier: "MoviesListNavigation") as? UINavigationController
-        moviesListViewController = navigationController?.viewControllers.first as? MoviesListViewController
         
-        guard let moviesListViewController = moviesListViewController else { return }
+        guard let moviesListViewController = storyboard.instantiateViewController(withIdentifier: "MoviesListViewController") as? MoviesListViewController else {
+            return
+        }
         
         let moviesDataManager = MoviesDataManager()
         let viewModel = MoviesListViewModel(moviesDataManager: moviesDataManager)
+        viewModel.coordinatorDelegate = self
         moviesListViewController.viewModel = viewModel
+        showAsRootViewController(moviesListViewController)
+    }
+    
+    internal func showAsRootViewController(_ controller: UIViewController) {
+        navigationController.viewControllers = [controller]
         window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+}
+
+extension MoviesListCoordinator: MovieListViewModelCoordinatorDelegate {
+    func showMovieDetails(movie: Movie?) {
+        guard let movie = movie else { return }
+        
+        let movieDetailsCoordinator = MovieDetailsCoordinator(navigationController: navigationController, movie: movie)
+        movieDetailsCoordinator.start()
     }
 }
